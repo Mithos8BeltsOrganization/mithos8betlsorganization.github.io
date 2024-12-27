@@ -11,17 +11,21 @@ class LookAtSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: BlocBuilder<LoginBloc, LoginState>(
-        builder: (context, state) {
+      child: BlocSelector<LoginBloc, LoginState, LookAt>(
+        selector: (state) {
+          return state.data.lookAt;
+        },
+        builder: (context, blocLookAt) {
           return DropdownMenu<LookAt>(
+            textStyle: const TextStyle(color: Colors.black),
             requestFocusOnTap: true,
             onSelected: (value) {
-              if (value case final lookAt? when lookAt != state.data.lookAt) {
+              if (value case final lookAt? when lookAt != blocLookAt) {
                 BlocProvider.of<LoginBloc>(context)
                     .add(LoginChangeLookAtType(lookAt: lookAt));
               }
             },
-            initialSelection: state.data.lookAt,
+            initialSelection: blocLookAt,
             dropdownMenuEntries: [
               DropdownMenuEntry<LookAt>(
                 value: LookAt.west,

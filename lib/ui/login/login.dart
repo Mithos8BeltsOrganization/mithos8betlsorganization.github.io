@@ -7,7 +7,10 @@ import '../common/background.dart';
 import '../error/error_state_params.dart';
 import 'bloc/login_bloc.dart';
 import 'components/land_selector.dart';
+import 'components/land_size_selector.dart';
+import 'components/launch_button.dart';
 import 'components/look_at_selector.dart';
+import 'components/out_of_range_coordinates.dart';
 import 'components/robert_mars.dart';
 import 'components/robert_start_coordinates.dart';
 import 'components/robert_travel.dart';
@@ -69,106 +72,62 @@ class Login extends StatelessWidget {
           }
         },
         child: Background(
-          child: Form(
-            child: Center(
-              child: Wrap(
-                alignment: WrapAlignment.start,
-                crossAxisAlignment: WrapCrossAlignment.center,
-                children: [
-                  SafeArea(
-                    child: Padding(
-                      padding:
-                          const EdgeInsets.only(top: 32, left: 8, right: 8),
-                      child: Column(
-                        children: [
-                          const Text(
-                            "Welcome to Mars Robert Experience",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 42,
-                              fontWeight: FontWeight.bold,
-                            ),
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 32),
+              child: Form(
+                child: Center(
+                  child: Wrap(
+                    alignment: WrapAlignment.start,
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    children: [
+                      const SafeArea(
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 32, left: 8, right: 8),
+                          child: Column(
+                            children: [
+                              Text(
+                                "Welcome to Mars Robert Experience",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 42,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                  vertical: 16,
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    LandSelector(),
+                                    SizedBox(width: 20),
+                                    LookAtSelector(),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 16),
+                                child: RobertStartCoordinates(),
+                              ),
+                              RobertTravel(),
+                              OutOfRangeCoordinates(),
+                              Padding(
+                                padding: EdgeInsets.symmetric(vertical: 24),
+                                child: LaunchButton(),
+                              ),
+                              RobertMars(),
+                            ],
                           ),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 16,
-                              vertical: 16,
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                LandSelector(),
-                                SizedBox(width: 20),
-                                LookAtSelector(),
-                              ],
-                            ),
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 16),
-                            child: RobertStartCoordinates(),
-                          ),
-                          const RobertTravel(),
-                          BlocBuilder<LoginBloc, LoginState>(
-                            builder: (context, state) {
-                              if (state is LoginCoordinateOutsideRangeState) {
-                                return const Padding(
-                                  padding: EdgeInsets.symmetric(
-                                    vertical: 12,
-                                  ),
-                                  child: DecoratedBox(
-                                    decoration: BoxDecoration(
-                                      color: Colors.redAccent,
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(20)),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsets.all(12),
-                                      child: Text(
-                                        'The coordinate are outside range',
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              }
-                              return const SizedBox();
-                            },
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 24),
-                            child: Builder(
-                              builder: (context) {
-                                return OutlinedButton(
-                                  style: TextButton.styleFrom(
-                                    foregroundColor: Colors.white,
-                                  ),
-                                  onPressed: () {
-                                    FocusScope.of(context).unfocus();
-                                    WidgetsBinding.instance
-                                        .addPostFrameCallback(
-                                      (timeStamp) {
-                                        if (Form.of(context).validate()
-                                            case final validate when validate) {
-                                          Form.of(context).save();
-                                          BlocProvider.of<LoginBloc>(context)
-                                              .add(
-                                            const LoginLaunchRobertTravel(),
-                                          );
-                                        }
-                                      },
-                                    );
-                                  },
-                                  child: const Text('Launch'),
-                                );
-                              },
-                            ),
-                          ),
-                          const RobertMars(),
-                        ],
+                        ),
                       ),
-                    ),
+                      if (breakpoint.isL) const Terrain(),
+                      const Center(child: LandSizeSelector()),
+                    ],
                   ),
-                  if (breakpoint.isL) const Terrain(),
-                ],
+                ),
               ),
             ),
           ),

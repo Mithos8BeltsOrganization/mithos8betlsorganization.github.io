@@ -27,6 +27,18 @@ class LoginBloc extends SafeBloc<LoginEvent, LoginState> {
       );
     });
 
+    on<LoginChangeMapSizeType>(
+      (event, emit) {
+        emit(
+          LoginUpdaterState(
+            stateData: state.data.copyWith(mapSize: event.mapSize),
+          ),
+        );
+
+        add(const LoginRefreshField());
+      },
+    );
+
     on<LoginChangeLookAtType>(
       (event, emit) {
         final lookAt = event.lookAt;
