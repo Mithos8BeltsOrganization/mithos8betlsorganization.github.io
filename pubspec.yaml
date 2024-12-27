@@ -1,0 +1,49 @@
+name: mars_robert_coordinate
+description: "A new Flutter project."
+
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.5.4
+
+dependencies:
+  flutter:
+    sdk: flutter
+  rive: ^0.13.20
+  flutter_bloc: 8.1.6
+  fpdart: 1.1.0
+  equatable: 2.0.5
+  meta: ^1.15.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  coolint: 2.0.0
+  flutter_gen_runner: 5.7.0
+  build_runner: any
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/light/
+    - assets/animations/
+
+flutter_gen:
+  output: lib/gen/ # Optional (default: lib/gen/)
+  line_length: 80 # Optional (default: 80)
+  # colors:
+  #   enabled: false
+  #   inputs:
+  #     - assets/colors/colors.xml
+  fonts:
+    enabled: true
+  # Optional
+  integrations:
+    flutter_svg: true
+    flare_flutter: false
+    rive: true
+    lottie: false
