@@ -69,7 +69,8 @@ final class MoveAroundUsecase extends UseCase<Coordinates, MoveAroundParams> {
       if (position == 'X') {
         throw UsecaseException(
           value: ObstacleFindFailure(
-            obstacleCoordinateFind: coordinatesAfterMove,
+            currentCoordinate: currentCoordinates,
+            inaccessibleCoordinate: coordinatesAfterMove,
           ),
         );
       }
@@ -135,9 +136,13 @@ final class NoValidFailure extends MoveAroundFailure {
 }
 
 final class ObstacleFindFailure extends MoveAroundFailure {
-  const ObstacleFindFailure({required this.obstacleCoordinateFind});
+  const ObstacleFindFailure({
+    required this.currentCoordinate,
+    required this.inaccessibleCoordinate,
+  });
 
-  final Coordinates obstacleCoordinateFind;
+  final Coordinates currentCoordinate;
+  final Coordinates inaccessibleCoordinate;
 }
 
 final class MapEndFailure extends MoveAroundFailure {
