@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/login_bloc.dart';
 import '../login_data.dart';
 
-class LandSelector extends StatelessWidget {
-  const LandSelector({
+class LandSizeSelector extends StatelessWidget {
+  const LandSizeSelector({
     super.key,
   });
 
@@ -14,19 +14,21 @@ class LandSelector extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          BlocBuilder<LoginBloc, LoginState>(
-            builder: (context, state) {
+          BlocSelector<LoginBloc, LoginState, MapSize>(
+            selector: (state) {
+              return state.data.mapSize;
+            },
+            builder: (context, mapSize) {
               return DropdownMenu<MapSize>(
+                textStyle: const TextStyle(color: Colors.black),
                 requestFocusOnTap: true,
-                controller: TextEditingController(),
                 onSelected: (value) {
-                  if (value case final fieldSize?
-                      when fieldSize != state.data.mapSize) {
+                  if (value case final fieldSize? when fieldSize != mapSize) {
                     BlocProvider.of<LoginBloc>(context)
                         .add(LoginChangeMapSizeType(mapSize: value));
                   }
                 },
-                initialSelection: state.data.mapSize,
+                initialSelection: mapSize,
                 dropdownMenuEntries: [
                   DropdownMenuEntry<MapSize>(
                     value: MapSize.small,

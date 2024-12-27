@@ -20,8 +20,8 @@ class LandSelector extends StatelessWidget {
             },
             builder: (context, fieldType) {
               return DropdownMenu<FieldType>(
+                textStyle: const TextStyle(color: Colors.black),
                 requestFocusOnTap: true,
-                controller: TextEditingController(),
                 onSelected: (value) {
                   if (value case final field? when field != fieldType) {
                     BlocProvider.of<LoginBloc>(context)
