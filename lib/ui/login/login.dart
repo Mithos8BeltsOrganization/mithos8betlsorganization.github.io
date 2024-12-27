@@ -83,6 +83,7 @@ class Login extends StatelessWidget {
                         children: [
                           const Text(
                             "Welcome to Mars Robert Experience",
+                            textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 42,
                               fontWeight: FontWeight.bold,
