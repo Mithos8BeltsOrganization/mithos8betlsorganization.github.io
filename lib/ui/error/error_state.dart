@@ -99,7 +99,10 @@ class ErrorState extends StatelessWidget {
                         final navigator = Navigator.of(context);
                         final canPop = await navigator.maybePop();
                         if (canPop) {
-                          return navigator.pop();
+                          navigator.popUntil(
+                            (route) => route.isFirst,
+                          );
+                          return;
                         }
                         if (context.mounted) {
                           await navigator.pushReplacementNamed('index');

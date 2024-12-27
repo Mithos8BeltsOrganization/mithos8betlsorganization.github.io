@@ -61,6 +61,8 @@ class MyApp extends StatelessWidget {
               },
             },
             initialRoute: 'index',
+            home: const Login(),
+
           ),
         ),
       ),
