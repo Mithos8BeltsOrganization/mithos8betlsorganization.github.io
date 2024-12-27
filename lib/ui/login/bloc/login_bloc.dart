@@ -96,10 +96,16 @@ class LoginBloc extends SafeBloc<LoginEvent, LoginState> {
           (failure) {
             return switch (failure) {
               NoValidFailure() => LoginValidationError(stateData: state.data),
-              ObstacleFindFailure() =>
-                LoginMapObstacleState(stateData: state.data),
-              MapEndFailure() =>
-                LoginMapOutsideErrorState(stateData: state.data),
+              ObstacleFindFailure() => LoginMapObstacleState(
+                  stateData: state.data,
+                  currentCoordinate: failure.currentCoordinate,
+                  inaccessibleCoordinate: failure.inaccessibleCoordinate,
+                ),
+              MapEndFailure() => LoginMapOutsideErrorState(
+                  stateData: state.data,
+                  currentCoordinate: failure.currentCoordinate,
+                  inaccessibleCoordinate: failure.inaccessibleCoordinate,
+                ),
               UnControlFailure() => LoginValidationError(stateData: state.data),
             };
           },

@@ -13,6 +13,9 @@ import 'package:rive/rive.dart' as _rive;
 class $AssetsAnimationsGen {
   const $AssetsAnimationsGen();
 
+  /// File path: assets/animations/error.riv
+  RiveGenImage get error => const RiveGenImage('assets/animations/error.riv');
+
   /// File path: assets/animations/mars_landing_page_solid.riv
   RiveGenImage get marsLandingPageSolid =>
       const RiveGenImage('assets/animations/mars_landing_page_solid.riv');
@@ -21,8 +24,13 @@ class $AssetsAnimationsGen {
   RiveGenImage get roverOnMars =>
       const RiveGenImage('assets/animations/rover_on_mars.riv');
 
+  /// File path: assets/animations/success.riv
+  RiveGenImage get success =>
+      const RiveGenImage('assets/animations/success.riv');
+
   /// List of all assets
-  List<RiveGenImage> get values => [marsLandingPageSolid, roverOnMars];
+  List<RiveGenImage> get values =>
+      [error, marsLandingPageSolid, roverOnMars, success];
 }
 
 class Assets {

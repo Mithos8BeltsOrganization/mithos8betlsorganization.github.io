@@ -38,7 +38,7 @@ final class LoginUpdaterState extends LoginState {
   }
 }
 
-final class LoginValidationError extends LoginState {
+final class LoginValidationError extends LoginLaunchState {
   const LoginValidationError({required super.stateData});
 
   @override
@@ -48,32 +48,59 @@ final class LoginValidationError extends LoginState {
 }
 
 sealed class LoginLaunchState extends LoginState {
-  const LoginLaunchState({required super.stateData});
+  const LoginLaunchState({
+    required super.stateData,
+    this.inaccessibleCoordinate,
+    this.currentCoordinate,
+  });
+
+  final Coordinates? currentCoordinate;
+  final Coordinates? inaccessibleCoordinate;
 }
 
 final class LoginSuccessfulLaunchState extends LoginLaunchState {
-  const LoginSuccessfulLaunchState({required super.stateData});
+  const LoginSuccessfulLaunchState({
+    required super.stateData,
+  });
 
   @override
   LoginState copyWith({LoginData? stateData}) {
-    return LoginSuccessfulLaunchState(stateData: stateData);
+    return LoginSuccessfulLaunchState(
+      stateData: stateData,
+    );
   }
 }
 
 final class LoginMapOutsideErrorState extends LoginLaunchState {
-  const LoginMapOutsideErrorState({required super.stateData});
+  const LoginMapOutsideErrorState({
+    required super.stateData,
+    required super.currentCoordinate,
+    required super.inaccessibleCoordinate,
+  });
 
   @override
   LoginState copyWith({LoginData? stateData}) {
-    return LoginMapOutsideErrorState(stateData: stateData);
+    return LoginMapOutsideErrorState(
+      stateData: stateData,
+      inaccessibleCoordinate: inaccessibleCoordinate,
+      currentCoordinate: currentCoordinate,
+    );
   }
 }
 
 final class LoginMapObstacleState extends LoginLaunchState {
-  const LoginMapObstacleState({required super.stateData});
+  const LoginMapObstacleState({
+    required super.stateData,
+    required super.currentCoordinate,
+    required super.inaccessibleCoordinate,
+  });
 
   @override
   LoginState copyWith({LoginData? stateData}) {
-    return LoginMapObstacleState(stateData: stateData);
+    return LoginMapObstacleState(
+      stateData: stateData,
+      inaccessibleCoordinate: inaccessibleCoordinate,
+      currentCoordinate: currentCoordinate,
+    );
   }
 }
