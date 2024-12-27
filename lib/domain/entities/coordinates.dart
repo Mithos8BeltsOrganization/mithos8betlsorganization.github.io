@@ -8,6 +8,9 @@ final class Coordinates extends Entity {
   final int x;
   final int y;
 
+  bool isOutsideMapSize({required int size}) =>
+      (x > size || x < 0) || (y > size || y < 0);
+
   @override
   List<Object?> get props => [
         x,

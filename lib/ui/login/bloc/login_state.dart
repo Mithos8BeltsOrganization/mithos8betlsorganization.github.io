@@ -38,6 +38,15 @@ final class LoginUpdaterState extends LoginState {
   }
 }
 
+final class LoginCoordinateOutsideRangeState extends LoginState {
+  const LoginCoordinateOutsideRangeState({required super.stateData});
+
+  @override
+  LoginState copyWith({LoginData? stateData}) {
+    return LoginCoordinateOutsideRangeState(stateData: stateData);
+  }
+}
+
 final class LoginValidationError extends LoginLaunchState {
   const LoginValidationError({required super.stateData});
 

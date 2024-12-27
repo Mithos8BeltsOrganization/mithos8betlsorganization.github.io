@@ -78,6 +78,11 @@ class LoginBloc extends SafeBloc<LoginEvent, LoginState> {
         if (coordinates == null) {
           return;
         }
+        if (coordinates.isOutsideMapSize(size: state.data.mapSize.size)
+            case final outside when outside) {
+          return emit(LoginCoordinateOutsideRangeState(stateData: state.data));
+        }
+
         final pathToFollow = state.data.path;
         if (pathToFollow == null) {
           return;

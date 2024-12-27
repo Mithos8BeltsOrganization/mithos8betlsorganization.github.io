@@ -108,6 +108,31 @@ class Login extends StatelessWidget {
                             child: RobertStartCoordinates(),
                           ),
                           const RobertTravel(),
+                          BlocBuilder<LoginBloc, LoginState>(
+                            builder: (context, state) {
+                              if (state is LoginCoordinateOutsideRangeState) {
+                                return const Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    vertical: 12,
+                                  ),
+                                  child: DecoratedBox(
+                                    decoration: BoxDecoration(
+                                      color: Colors.redAccent,
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(20)),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsets.all(12),
+                                      child: Text(
+                                        'The coordinate are outside range',
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }
+                              return const SizedBox();
+                            },
+                          ),
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 24),
                             child: Builder(
