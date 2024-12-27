@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:fpdart/fpdart.dart';
-import 'package:mars_robert_coordinate/domain/entities/field_type.dart';
+import '../entities/field_type.dart';
 
 final class TerrainGenerator {
   const TerrainGenerator({required this.fieldType, this.dimension = 200});
@@ -28,15 +28,16 @@ final class TerrainGenerator {
   bool _isObstacle() {
     final int data = Random().nextInt(10);
     final bool isObstacle = fieldType.resolve(
-        onLand: IO(
-          () => data < 1,
-        ),
-        onMountain: IO(
-          () => data < 3,
-        ),
-        onHills: IO(
-          () => data <= 2,
-        ));
+      onLand: IO(
+        () => data < 1,
+      ),
+      onMountain: IO(
+        () => data < 3,
+      ),
+      onHills: IO(
+        () => data <= 2,
+      ),
+    );
     return isObstacle;
   }
 }

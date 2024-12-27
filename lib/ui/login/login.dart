@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:mars_robert_coordinate/ui/login/bloc/login_bloc.dart';
-import 'package:mars_robert_coordinate/ui/login/components/land_selector.dart';
-import 'package:mars_robert_coordinate/ui/login/components/look_at_selector.dart';
-import 'package:mars_robert_coordinate/ui/login/components/robert_mars.dart';
-import 'package:mars_robert_coordinate/ui/login/components/robert_start_coordinates.dart';
-import 'package:mars_robert_coordinate/ui/login/components/robert_travel.dart';
-import 'package:mars_robert_coordinate/ui/login/components/terrain.dart';
+import 'bloc/login_bloc.dart';
+import 'components/land_selector.dart';
+import 'components/look_at_selector.dart';
+import 'components/robert_mars.dart';
+import 'components/robert_start_coordinates.dart';
+import 'components/robert_travel.dart';
+import 'components/terrain.dart';
 
-import 'package:mars_robert_coordinate/utils/layout_scope.dart';
+import '../../utils/layout_scope.dart';
 
 class Login extends StatelessWidget {
   const Login({super.key});

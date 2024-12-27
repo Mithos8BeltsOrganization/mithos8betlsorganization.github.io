@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mars_robert_coordinate/ui/login/bloc/login_bloc.dart';
+import '../bloc/login_bloc.dart';
 
 class RobertTravel extends StatelessWidget {
   const RobertTravel({
@@ -39,7 +39,7 @@ class RobertTravel extends StatelessWidget {
                 return null;
               },
               inputFormatters: [
-                FilteringTextInputFormatter.allow(RegExp(r'[FBLRfblr]'))
+                FilteringTextInputFormatter.allow(RegExp(r'[FBLRfblr]')),
               ],
             ),
           ),
@@ -52,7 +52,9 @@ class RobertTravel extends StatelessWidget {
 class UpperCaseTextFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue, TextEditingValue newValue) {
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
     return TextEditingValue(
       text: newValue.text.toUpperCase(),
       selection: newValue.selection,

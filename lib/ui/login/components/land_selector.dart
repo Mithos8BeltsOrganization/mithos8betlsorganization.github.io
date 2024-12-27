@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mars_robert_coordinate/ui/login/bloc/login_bloc.dart';
-import 'package:mars_robert_coordinate/ui/login/login_data.dart';
+import '../bloc/login_bloc.dart';
+import '../login_data.dart';
 
 class LandSelector extends StatelessWidget {
   const LandSelector({
@@ -20,25 +20,27 @@ class LandSelector extends StatelessWidget {
             },
             builder: (context, fieldType) {
               return DropdownMenu<FieldType>(
-                  requestFocusOnTap: true,
-                  controller: TextEditingController(),
-                  onSelected: (value) {
-                    if (value case final field? when field != fieldType) {
-                      BlocProvider.of<LoginBloc>(context)
-                          .add(LoginChangeFieldType(field: value));
-                    }
-                  },
-                  initialSelection: fieldType,
-                  dropdownMenuEntries: fieldType.allToDropDownMenu);
+                requestFocusOnTap: true,
+                controller: TextEditingController(),
+                onSelected: (value) {
+                  if (value case final field? when field != fieldType) {
+                    BlocProvider.of<LoginBloc>(context)
+                        .add(LoginChangeFieldType(field: value));
+                  }
+                },
+                initialSelection: fieldType,
+                dropdownMenuEntries: fieldType.allToDropDownMenu,
+              );
             },
           ),
           const SizedBox(width: 8),
           IconButton(
-              onPressed: () {
-                BlocProvider.of<LoginBloc>(context)
-                    .add(const LoginRefreshField());
-              },
-              icon: const Icon(Icons.refresh))
+            onPressed: () {
+              BlocProvider.of<LoginBloc>(context)
+                  .add(const LoginRefreshField());
+            },
+            icon: const Icon(Icons.refresh),
+          ),
         ],
       ),
     );

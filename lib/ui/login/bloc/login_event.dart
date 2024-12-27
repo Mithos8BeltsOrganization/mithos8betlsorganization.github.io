@@ -32,9 +32,8 @@ final class LoginLaunchRobertTravel extends LoginEvent {
 }
 
 sealed class LoginSaveEvents<T> extends LoginEvent {
-  final T value;
-
   const LoginSaveEvents({required this.value});
+  final T value;
 }
 
 final class LoginSaveXCoordinate extends LoginSaveEvents<int> {

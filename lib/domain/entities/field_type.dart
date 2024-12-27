@@ -5,10 +5,11 @@ enum FieldType {
   mountain,
   hills;
 
-  T resolve<T>(
-          {required IO<T> onLand,
-          required IO<T> onMountain,
-          required IO<T> onHills}) =>
+  T resolve<T>({
+    required IO<T> onLand,
+    required IO<T> onMountain,
+    required IO<T> onHills,
+  }) =>
       switch (this) {
         FieldType.land => onLand,
         FieldType.mountain => onMountain,

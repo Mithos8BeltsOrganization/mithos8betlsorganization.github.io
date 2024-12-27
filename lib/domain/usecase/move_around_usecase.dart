@@ -1,38 +1,45 @@
 import 'package:fpdart/fpdart.dart';
 
-import 'package:mars_robert_coordinate/domain/entities/coordinates.dart';
-import 'package:mars_robert_coordinate/domain/entities/look_at.dart';
-import 'package:mars_robert_coordinate/domain/usecase/usecase.dart';
+import '../entities/coordinates.dart';
+import '../entities/look_at.dart';
+import 'usecase.dart';
 
 final class MoveAroundUsecase extends UseCase<Coordinates, MoveAroundParams> {
   @override
   Either<MoveAroundFailure, Coordinates> call(MoveAroundParams params) {
     return IOEither<MoveAroundFailure, Coordinates>.Do(
       ($) {
-        return $(IOEither.tryCatch(
-          () {
-            if (params.isNotValidate()) {
-              throw const UsecaseException(value: NoValidFailure());
-            }
-            final currentMap = params._mapInMatrix;
+        return $(
+          IOEither.tryCatch(
+            () {
+              if (params.isNotValidate()) {
+                throw const UsecaseException(value: NoValidFailure());
+              }
+              final currentMap = params._mapInMatrix;
 
-            return coordinatesAfterPath(params.pathToFollow,
-                mapMatrix: currentMap, coordinates: params.initialCoordinate);
-          },
-          (error, stackTrace) {
-            if (error is UsecaseException<MoveAroundFailure>) {
-              return error.value;
-            }
-            return const UnControlFailure();
-          },
-        ));
+              return coordinatesAfterPath(
+                params.pathToFollow,
+                mapMatrix: currentMap,
+                coordinates: params.initialCoordinate,
+              );
+            },
+            (error, stackTrace) {
+              if (error is UsecaseException<MoveAroundFailure>) {
+                return error.value;
+              }
+              return const UnControlFailure();
+            },
+          ),
+        );
       },
     ).run();
   }
 
-  Coordinates coordinatesAfterPath(String path,
-      {required List<List<String>> mapMatrix,
-      required Coordinates coordinates}) {
+  Coordinates coordinatesAfterPath(
+    String path, {
+    required List<List<String>> mapMatrix,
+    required Coordinates coordinates,
+  }) {
     final List<String> splitPath = path.split('');
     Coordinates currentCoordinates = coordinates;
     for (String currentAction in splitPath) {
@@ -72,9 +79,11 @@ final class MoveAroundUsecase extends UseCase<Coordinates, MoveAroundParams> {
     return currentCoordinates;
   }
 
-  String _obtainPosition(List<List<String>> mapMatrix,
-      {required Coordinates currentCoordinates,
-      required Coordinates previousCoordinates}) {
+  String _obtainPosition(
+    List<List<String>> mapMatrix, {
+    required Coordinates currentCoordinates,
+    required Coordinates previousCoordinates,
+  }) {
     try {
       final List<String> line = mapMatrix[currentCoordinates.y];
       return line[currentCoordinates.x];
@@ -90,22 +99,20 @@ final class MoveAroundUsecase extends UseCase<Coordinates, MoveAroundParams> {
 }
 
 final class UsecaseException<T extends Failure> implements Exception {
-  final T value;
-
   const UsecaseException({required this.value});
+  final T value;
 }
 
 final class MoveAroundParams extends Params {
+  MoveAroundParams({
+    required this.initialCoordinate,
+    required String pathToFollow,
+    required this.currentMap,
+    required LookAt lookAt,
+  }) : pathToFollow = lookAt.normalizePath(pathToFollow);
   final Coordinates initialCoordinate;
   final String pathToFollow;
   final String currentMap;
-
-  MoveAroundParams(
-      {required this.initialCoordinate,
-      required String pathToFollow,
-      required this.currentMap,
-      required LookAt lookAt})
-      : pathToFollow = lookAt.normalizePath(pathToFollow);
 
   List<List<String>> get _mapInMatrix => currentMap.split('\n').map(
         (row) {
@@ -134,13 +141,12 @@ final class ObstacleFindFailure extends MoveAroundFailure {
 }
 
 final class MapEndFailure extends MoveAroundFailure {
-  final Coordinates currentCoordinate;
-  final Coordinates inaccessibleCoordinate;
-
   const MapEndFailure({
     required this.currentCoordinate,
     required this.inaccessibleCoordinate,
   });
+  final Coordinates currentCoordinate;
+  final Coordinates inaccessibleCoordinate;
 }
 
 final class UnControlFailure extends MoveAroundFailure {

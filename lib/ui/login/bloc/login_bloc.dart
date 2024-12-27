@@ -1,8 +1,8 @@
-import 'package:mars_robert_coordinate/domain/entities/coordinates.dart';
-import 'package:mars_robert_coordinate/domain/usecase/move_around_usecase.dart';
-import 'package:mars_robert_coordinate/domain/usecase/terrain_generator.dart';
-import 'package:mars_robert_coordinate/ui/login/login_data.dart';
-import 'package:mars_robert_coordinate/utils/safe_bloc.dart';
+import '../../../domain/entities/coordinates.dart';
+import '../../../domain/usecase/move_around_usecase.dart';
+import '../../../domain/usecase/terrain_generator.dart';
+import '../login_data.dart';
+import '../../../utils/safe_bloc.dart';
 import 'package:meta/meta.dart';
 
 part 'login_event.dart';
@@ -105,10 +105,12 @@ class LoginBloc extends SafeBloc<LoginEvent, LoginState> {
           },
           (newRobertCoordinates) {
             return LoginSuccessfulLaunchState(
-                stateData:
-                    state.data.copyWith(coordinates: newRobertCoordinates));
+              stateData: state.data.copyWith(coordinates: newRobertCoordinates),
+            );
           },
         );
+
+        emit(navigationState);
       },
     );
 
