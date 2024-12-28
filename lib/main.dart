@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'domain/entities/coordinates.dart';
 import 'ui/error/error_state.dart';
 import 'ui/error/error_state_params.dart';
-import 'ui/login/login.dart';
+
+import 'ui/setup/setup.dart';
 import 'ui/successful/successful_state.dart';
 import 'utils/layout_scope.dart';
 import 'utils/widget_cache.dart';
@@ -54,12 +55,12 @@ class MyApp extends StatelessWidget {
               ),
             ),
             routes: {
-              'index': (context) => const Login(),
+              'index': (context) => const Setup(),
               'successful': (context) {
                 final modalRoute = ModalRoute.of(context);
                 final isFirst = modalRoute?.isFirst ?? true;
                 if (isFirst) {
-                  return const Login();
+                  return const Setup();
                 }
 
                 if (modalRoute?.settings.arguments case final coordinates
@@ -69,13 +70,13 @@ class MyApp extends StatelessWidget {
                   );
                 }
 
-                return const Login();
+                return const Setup();
               },
               'error': (context) {
                 final modalRoute = ModalRoute.of(context);
                 final isFirst = modalRoute?.isFirst ?? true;
                 if (isFirst) {
-                  return const Login();
+                  return const Setup();
                 }
 
                 final stateParams = modalRoute?.settings.arguments;
@@ -87,7 +88,7 @@ class MyApp extends StatelessWidget {
               },
             },
             initialRoute: 'index',
-            home: const Login(),
+            home: const Setup(),
           ),
         ),
       ),

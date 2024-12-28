@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../domain/entities/look_at.dart';
-import '../../../gen/assets.gen.dart';
-import '../bloc/login_bloc.dart';
+import '../../../../domain/entities/look_at.dart';
+import '../../../../gen/assets.gen.dart';
+import '../../bloc/setup_bloc.dart';
 
 class RobertMars extends StatelessWidget {
   const RobertMars({
@@ -13,7 +13,7 @@ class RobertMars extends StatelessWidget {
   Widget build(BuildContext context) {
     return ConstrainedBox(
       constraints: const BoxConstraints(maxHeight: 200, maxWidth: 200),
-      child: BlocSelector<LoginBloc, LoginState, LookAt>(
+      child: BlocSelector<SetupBloc, SetupState, LookAt>(
         selector: (state) {
           return state.data.lookAt;
         },
