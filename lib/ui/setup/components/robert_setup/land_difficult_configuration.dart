@@ -41,15 +41,17 @@ class LandDifficultConfiguration extends StatelessWidget {
             );
           },
         ),
-        const SizedBox(width: 8),
         ColoredBox(
           color: Colors.white,
-          child: IconButton(
-            onPressed: () {
-              BlocProvider.of<SetupBloc>(context)
-                  .add(const SetupRefreshField());
-            },
-            icon: const Icon(Icons.refresh),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+            child: IconButton(
+              onPressed: () {
+                BlocProvider.of<SetupBloc>(context)
+                    .add(const SetupRefreshField());
+              },
+              icon: const Icon(Icons.refresh),
+            ),
           ),
         ),
       ],

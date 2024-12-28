@@ -40,11 +40,11 @@ class RobertSetup extends StatelessWidget {
             ],
           ),
         ),
+        CoordinatesConfiguration(),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          child: CoordinatesConfiguration(),
+          padding: EdgeInsets.symmetric(vertical: 16),
+          child: PathConfiguration(),
         ),
-        PathConfiguration(),
         OutOfRangeCoordinates(),
         Padding(
           padding: EdgeInsets.symmetric(vertical: 24),

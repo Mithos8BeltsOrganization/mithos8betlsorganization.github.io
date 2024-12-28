@@ -18,6 +18,8 @@ class PathConfiguration extends StatelessWidget {
         decoration: const InputDecoration(
           hintText: 'Enter F, B, L, R only',
           labelText: 'Travel',
+          helperStyle: TextStyle(color: Colors.blueAccent),
+          helperText: 'Could be forward, backwards, left and right',
         ),
         onSaved: (value) {
           final travel = value;
