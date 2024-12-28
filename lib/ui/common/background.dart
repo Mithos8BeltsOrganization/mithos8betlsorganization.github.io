@@ -9,7 +9,13 @@ class Background extends StatelessWidget {
   Widget build(BuildContext context) {
     return DecoratedBox(
       decoration: const BoxDecoration(
-        color: Color.fromRGBO(55, 26, 117, 1),
+        gradient: LinearGradient(
+          colors: [
+            Color.fromRGBO(43, 35, 162, 1),
+            Color.fromRGBO(58, 32, 116, 1),
+            Color.fromRGBO(116, 32, 53, 1),
+          ],
+        ),
       ),
       child: Material(
         type: MaterialType.transparency,
