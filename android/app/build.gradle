@@ -7,8 +7,9 @@ plugins {
 
 android {
     namespace = "com.example.mars_robert_coordinate"
-    compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    ndkVersion '26.1.10909125' //23.1.7779620 flutter.ndkVersion
+
+    compileSdk 34
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -24,10 +25,10 @@ android {
         applicationId = "com.example.mars_robert_coordinate"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = flutter.minSdkVersion
-        targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+        minSdkVersion 24 // 21 for deeplink flutter.minSdkVersion
+        targetSdkVersion 34 //flutter.targetSdkVersion
     }
 
     buildTypes {
