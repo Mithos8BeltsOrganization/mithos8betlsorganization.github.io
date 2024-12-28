@@ -19,3 +19,8 @@ it is facing.
 ● Implement obstacle detection before each move to a new square. If a given
 sequence of commands encounters an obstacle, the rover moves up to the last
 possible point, aborts the sequence and reports the obstacle.
+
+
+##Video
+[![Watch the video](https://img.youtube.com/vi/mR_xPJiYmm0/maxresdefault.jpg)](https://youtu.be/mR_xPJiYmm0)
+
