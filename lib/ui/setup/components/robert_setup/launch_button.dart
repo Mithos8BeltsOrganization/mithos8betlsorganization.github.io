@@ -1,6 +1,7 @@
-import '../bloc/login_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../bloc/setup_bloc.dart';
 
 class LaunchButton extends StatelessWidget {
   const LaunchButton({
@@ -15,15 +16,12 @@ class LaunchButton extends StatelessWidget {
       ),
       onPressed: () {
         FocusScope.of(context).unfocus();
-        WidgetsBinding.instance
-            .addPostFrameCallback(
+        WidgetsBinding.instance.addPostFrameCallback(
           (timeStamp) {
-            if (Form.of(context).validate()
-                case final validate when validate) {
+            if (Form.of(context).validate() case final validate when validate) {
               Form.of(context).save();
-              BlocProvider.of<LoginBloc>(context)
-                  .add(
-                const LoginLaunchRobertTravel(),
+              BlocProvider.of<SetupBloc>(context).add(
+                const SetupLaunchRobertTravel(),
               );
             }
           },

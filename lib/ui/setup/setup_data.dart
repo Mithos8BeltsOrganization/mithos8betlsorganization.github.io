@@ -9,8 +9,8 @@ export 'package:mars_robert_coordinate/domain/entities/field_type.dart';
 export 'package:mars_robert_coordinate/domain/entities/look_at.dart';
 export 'package:mars_robert_coordinate/domain/entities/map_size.dart';
 
-final class LoginData extends Equatable {
-  const LoginData({
+final class SetupData extends Equatable {
+  const SetupData({
     this.fieldType = FieldType.land,
     this.lookAt = LookAt.north,
     this.mapSize = MapSize.small,
@@ -35,7 +35,7 @@ final class LoginData extends Equatable {
         path,
       ];
 
-  LoginData copyWith({
+  SetupData copyWith({
     FieldType? fieldType,
     LookAt? lookAt,
     String? terrain,
@@ -43,7 +43,7 @@ final class LoginData extends Equatable {
     Coordinates? coordinates,
     String? path,
   }) {
-    return LoginData(
+    return SetupData(
       fieldType: fieldType ?? this.fieldType,
       lookAt: lookAt ?? this.lookAt,
       terrain: terrain ?? this.terrain,

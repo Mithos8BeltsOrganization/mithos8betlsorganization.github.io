@@ -1,6 +1,7 @@
-import '../bloc/login_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../bloc/setup_bloc.dart';
 
 class OutOfRangeCoordinates extends StatelessWidget {
   const OutOfRangeCoordinates({
@@ -9,9 +10,9 @@ class OutOfRangeCoordinates extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<LoginBloc, LoginState, bool>(
+    return BlocSelector<SetupBloc, SetupState, bool>(
       selector: (state) {
-        return state is LoginCoordinateOutsideRangeState;
+        return state is SetupCoordinateOutsideRangeState;
       },
       builder: (context, mustShowError) {
         if (mustShowError) {

@@ -1,16 +1,16 @@
 import '../../../domain/entities/coordinates.dart';
 import '../../../domain/usecase/move_around_usecase.dart';
 import '../../../domain/usecase/terrain_generator.dart';
-import '../login_data.dart';
+import '../setup_data.dart';
 import '../../../utils/safe_bloc.dart';
 import 'package:meta/meta.dart';
 
-part 'login_event.dart';
-part 'login_state.dart';
+part 'setup_event.dart';
+part 'setup_state.dart';
 
-class LoginBloc extends SafeBloc<LoginEvent, LoginState> {
-  LoginBloc() : super(const LoginInitialState()) {
-    on<LoginChangeFieldType>((event, emit) {
+class SetupBloc extends SafeBloc<SetupEvent, SetupState> {
+  SetupBloc() : super(const SetupInitialState()) {
+    on<SetupChangeFieldType>((event, emit) {
       final fieldType = event.field;
       final terrain = TerrainGenerator(
         fieldType: fieldType,
@@ -18,7 +18,7 @@ class LoginBloc extends SafeBloc<LoginEvent, LoginState> {
       ).generator();
 
       emit(
-        LoginTerrainGenerateState(
+        SetupTerrainGenerateState(
           stateData: state.data.copyWith(
             fieldType: fieldType,
             terrain: terrain,
@@ -27,60 +27,60 @@ class LoginBloc extends SafeBloc<LoginEvent, LoginState> {
       );
     });
 
-    on<LoginChangeMapSizeType>(
+    on<SetupChangeMapSizeType>(
       (event, emit) {
         emit(
-          LoginUpdaterState(
+          SetupUpdaterState(
             stateData: state.data.copyWith(mapSize: event.mapSize),
           ),
         );
 
-        add(const LoginRefreshField());
+        add(const SetupRefreshField());
       },
     );
 
-    on<LoginChangeLookAtType>(
+    on<SetupChangeLookAtType>(
       (event, emit) {
         final lookAt = event.lookAt;
 
         emit(
-          LoginTerrainGenerateState(
+          SetupTerrainGenerateState(
             stateData: state.data.copyWith(lookAt: lookAt),
           ),
         );
       },
     );
 
-    on<LoginSaveEvents>(
+    on<SetupSaveEvents>(
       (event, emit) {
         final stateData = state.data;
         final coordinate =
             stateData.coordinates ?? const Coordinates(x: 0, y: 0);
         final newStateData = switch (event) {
-          LoginSaveXCoordinate() => stateData.copyWith(
+          SetupSaveXCoordinate() => stateData.copyWith(
               coordinates: coordinate.copyWith(
                 x: event.value,
               ),
             ),
-          LoginSaveYCoordinate() => stateData.copyWith(
+          SetupSaveYCoordinate() => stateData.copyWith(
               coordinates: coordinate.copyWith(
                 y: event.value,
               ),
             ),
-          LoginSavePath() => stateData.copyWith(path: event.value),
+          SetupSavePath() => stateData.copyWith(path: event.value),
         };
 
-        emit(LoginUpdaterState(stateData: newStateData));
+        emit(SetupUpdaterState(stateData: newStateData));
       },
     );
 
-    on<LoginRefreshField>(
+    on<SetupRefreshField>(
       (event, emit) {
-        add(LoginChangeFieldType(field: state.data.fieldType));
+        add(SetupChangeFieldType(field: state.data.fieldType));
       },
     );
 
-    on<LoginLaunchRobertTravel>(
+    on<SetupLaunchRobertTravel>(
       (event, emit) {
         final terrain = state.data.terrain;
         if (terrain == null) {
@@ -92,7 +92,7 @@ class LoginBloc extends SafeBloc<LoginEvent, LoginState> {
         }
         if (coordinates.isOutsideMapSize(size: state.data.mapSize.size)
             case final outside when outside) {
-          return emit(LoginCoordinateOutsideRangeState(stateData: state.data));
+          return emit(SetupCoordinateOutsideRangeState(stateData: state.data));
         }
 
         final pathToFollow = state.data.path;
@@ -109,25 +109,25 @@ class LoginBloc extends SafeBloc<LoginEvent, LoginState> {
           ),
         );
 
-        final LoginState navigationState = data.fold(
+        final SetupState navigationState = data.fold(
           (failure) {
             return switch (failure) {
-              NoValidFailure() => LoginValidationError(stateData: state.data),
-              ObstacleFindFailure() => LoginMapObstacleState(
+              NoValidFailure() => SetupValidationError(stateData: state.data),
+              ObstacleFindFailure() => SetupMapObstacleState(
                   stateData: state.data,
                   currentCoordinate: failure.currentCoordinate,
                   inaccessibleCoordinate: failure.inaccessibleCoordinate,
                 ),
-              MapEndFailure() => LoginMapOutsideErrorState(
+              MapEndFailure() => SetupMapOutsideErrorState(
                   stateData: state.data,
                   currentCoordinate: failure.currentCoordinate,
                   inaccessibleCoordinate: failure.inaccessibleCoordinate,
                 ),
-              UnControlFailure() => LoginValidationError(stateData: state.data),
+              UnControlFailure() => SetupValidationError(stateData: state.data),
             };
           },
           (newRobertCoordinates) {
-            return LoginSuccessfulLaunchState(
+            return SetupSuccessfulLaunchState(
               stateData: state.data.copyWith(coordinates: newRobertCoordinates),
             );
           },
@@ -137,6 +137,6 @@ class LoginBloc extends SafeBloc<LoginEvent, LoginState> {
       },
     );
 
-    add(LoginChangeFieldType(field: state.data.fieldType));
+    add(SetupChangeFieldType(field: state.data.fieldType));
   }
 }
