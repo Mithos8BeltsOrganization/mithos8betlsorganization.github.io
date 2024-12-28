@@ -31,8 +31,7 @@ class RobertSetup extends StatelessWidget {
             horizontal: 16,
             vertical: 16,
           ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
+          child: Wrap(
             children: [
               LandDifficultConfiguration(),
               SizedBox(width: 20),
